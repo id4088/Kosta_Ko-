@@ -20,8 +20,8 @@ int main(int argv, char** argc)
 }
 void qr_maun()
 {
-	cout << "À¬Ä¸Àº C¹öÆ°, ÀÌ¹ÌÁö´Â I¹öÆ°À» ´­·ÁÁÖ½Ã±â ¹Ù¶ø´Ï´Ù.\n";
-	cout << "Á¾·á½Ã Esc ¹öÆ°À» ´©¸£¼¼¿ä.\n";
+	cout << "ìœ•ìº¡ì€ Cë²„íŠ¼, ì´ë¯¸ì§€ëŠ” Ië²„íŠ¼ì„ ëˆŒë ¤ì£¼ì‹œê¸° ë°”ëë‹ˆë‹¤.\n";
+	cout << "ì¢…ë£Œì‹œ Esc ë²„íŠ¼ì„ ëˆ„ë¥´ì„¸ìš”.\n";
 	int key;
 	string qr;
 	key = _getch();
@@ -33,8 +33,9 @@ void qr_maun()
 		qr = camera();
 	else if (key == 27)
 		return;
-	cout << "ÀÀ´ä" << qr << endl;
+	cout << "ì‘ë‹µ" << qr << endl;
 }
+//ê¸°ìš¸ì–´ì§„ qr ì½”ë“œ ì¸ì‹ ì½”ë“œ ì‹¤íŒ¨!! ì‚¬ìš©ê¸ˆì§€
 void image2()
 {
 	Mat img = imread("qr2.jpg");
@@ -68,7 +69,7 @@ void image2()
 }
 string image() {
 	string img_name;
-	cout << "ÀÌ¹ÌÁö ÀÌ¸§À» Àû¾îÁÖ¼¼¿ä(È®ÀåÀÚ Æ÷ÇÔ)\n";
+	cout << "ì´ë¯¸ì§€ ì´ë¦„ì„ ì ì–´ì£¼ì„¸ìš”(í™•ì¥ì í¬í•¨)\n";
 	cin >> img_name;
 
 	Mat img = imread(img_name);
@@ -93,55 +94,55 @@ string image() {
 		
 }
 string camera() {
-	//º¯¼ö ¼±¾ğ
-	bool detctor_ok = false;//°ËÃâ À¯¹« º¯¼ö
-	string return_value;// qr°ª ¹İÈ¯
-	int count = 0;//°ËÃâ ¼º°øÈÄ Á¾·á Ä«¿îÆ®
+	//ë³€ìˆ˜ ì„ ì–¸
+	bool detctor_ok = false;//ê²€ì¶œ ìœ ë¬´ ë³€ìˆ˜
+	string return_value;// qrê°’ ë°˜í™˜
+	int count = 0;//ê²€ì¶œ ì„±ê³µí›„ ì¢…ë£Œ ì¹´ìš´íŠ¸
 
-	//Ä«¸Ş¶ó ÀÛµ¿
+	//ì¹´ë©”ë¼ ì‘ë™
 	VideoCapture cap(0);
 	
-	//½ÇÇà ½ÇÆĞ½Ã
+	//ì‹¤í–‰ ì‹¤íŒ¨ì‹œ
 	if (!cap.isOpened()) {
 		cerr << "Camera open failed! " << endl;
 		return 0;
 	}
 	
-	QRCodeDetector detector;//qr ¶óÀÌºê·¯¸® È£Ãâ
+	QRCodeDetector detector;//qr ë¼ì´ë¸ŒëŸ¬ë¦¬ í˜¸ì¶œ
 	
-	Mat frame;//Ä«¸Ş¶ó ÇÁ¶óÀÓ ¼±¾ğ
-	//¿µ»ó Ãâ·ÂÀ» À§ÇÑ ¹İº¹¹®
+	Mat frame;//ì¹´ë©”ë¼ í”„ë¼ì„ ì„ ì–¸
+	//ì˜ìƒ ì¶œë ¥ì„ ìœ„í•œ ë°˜ë³µë¬¸
 	while (true) {
 		
-		cap >> frame;//Ä«¸Ş¶ó¿¡¼­ ÇÁ·¹ÀÓÀÌ Ãâ·Â
-		Mat frame2 = frame(Rect(225, 150, 200, 200));//frame¿¡¼­ ¾ãÀº º¹»ç·Î »óÀÚ ¸ğ¾çÀÇ frame2 »ı¼º
-		//ÇÁ·¹ÀÓÀÌ Á¦ÀÛ ½ÇÆĞ½Ã ¿À·ù Ãâ·Â
+		cap >> frame;//ì¹´ë©”ë¼ì—ì„œ í”„ë ˆì„ì´ ì¶œë ¥
+		Mat frame2 = frame(Rect(225, 150, 200, 200));//frameì—ì„œ ì–‡ì€ ë³µì‚¬ë¡œ ìƒì ëª¨ì–‘ì˜ frame2 ìƒì„±
+		//í”„ë ˆì„ì´ ì œì‘ ì‹¤íŒ¨ì‹œ ì˜¤ë¥˜ ì¶œë ¥
 		if (frame.empty()) {
 			cerr << "Frame load failed!" << endl;
 			break;
 		}
 
-		vector<Point> points;//qrÀÇ ÁÂÇ¥ º¯¼ö
-		string info = detector.detectAndDecode(frame2, points);//frame2 ¿µ»ó¿¡ qrÀ» °ËÃâ,info¿¡ qr ³»¿ë ÀÔ·Â,points¿¡ ÁÂÇ¥ ÀÔ·Â
+		vector<Point> points;//qrì˜ ì¢Œí‘œ ë³€ìˆ˜
+		string info = detector.detectAndDecode(frame2, points);//frame2 ì˜ìƒì— qrì„ ê²€ì¶œ,infoì— qr ë‚´ìš© ì…ë ¥,pointsì— ì¢Œí‘œ ì…ë ¥
 		
-		//infoÀÇ ³»¿ë¹° À¯¹«·Î ÀÛµ¿
+		//infoì˜ ë‚´ìš©ë¬¼ ìœ ë¬´ë¡œ ì‘ë™
 		if (info.empty()) {
 			
 			rectangle(frame, Rect(225, 150, 200, 200),
-				Scalar(255, 255, 255), 2);//°¡¿îµ¥ Èº»ö »óÀÚ Çü¼º
+				Scalar(255, 255, 255), 2);//ê°€ìš´ë° íšìƒ‰ ìƒì í˜•ì„±
 			
 		}
 		else if (!info.empty())
 		{	
-			rectangle(frame, Rect(225, 150, 200, 200),Scalar(0, 0, 255), 2);//»¡°£»öÀ¸·Î º¯°æ
-			polylines(frame2, points, true, Scalar(0, 0, 255), 1);//qr¿¡ »¡°£ »óÀÚ Ç¥½Ã
-			putText(frame, info, Point(10, 30), FONT_HERSHEY_DUPLEX, 1, Scalar(0, 0, 255));//qr ³»¿ë È­¸é Ãâ·Â
-			return_value = info;//¹İº¹¹®À¸·Î ÀÎÇÑ ÃÊ±âÈ­·Î ÀÎÇÏ¿© ´ëÇÇ¼Ò¸¦ ¸¸µç´Ù.
+			rectangle(frame, Rect(225, 150, 200, 200),Scalar(0, 0, 255), 2);//ë¹¨ê°„ìƒ‰ìœ¼ë¡œ ë³€ê²½
+			polylines(frame2, points, true, Scalar(0, 0, 255), 1);//qrì— ë¹¨ê°„ ìƒì í‘œì‹œ
+			putText(frame, info, Point(10, 30), FONT_HERSHEY_DUPLEX, 1, Scalar(0, 0, 255));//qr ë‚´ìš© í™”ë©´ ì¶œë ¥
+			return_value = info;//ë°˜ë³µë¬¸ìœ¼ë¡œ ì¸í•œ ì´ˆê¸°í™”ë¡œ ì¸í•˜ì—¬ ëŒ€í”¼ì†Œë¥¼ ë§Œë“ ë‹¤.
 			detctor_ok = true; 
 			
 		}
 		
-		//ÇÔ¼ö Á¾·á Ä«¿îÆ® ´Ù¿î
+		//í•¨ìˆ˜ ì¢…ë£Œ ì¹´ìš´íŠ¸ ë‹¤ìš´
 		if (detctor_ok == true)
 		{
 			
@@ -161,7 +162,7 @@ string camera() {
 			break;
 		}
 			
-		//¿£ÅÍÅ° ÀÔ·Â½Ã Á¾·á
+		//ì—”í„°í‚¤ ì…ë ¥ì‹œ ì¢…ë£Œ
 		if (waitKey(1) == 13)	
 			break;
 	}
