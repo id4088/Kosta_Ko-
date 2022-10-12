@@ -14,10 +14,10 @@ from sklearn.svm import SVC
 
 sql =   """
         select
-            col1,
-            col2,
-            col3,
-            col4
+            col1, col2, col3, col4, col5, col6, col7, col8, col9, col10,
+	         col11, col12, col13, col14, col15, col16, col17, col18, col19, col20,
+	         col21, col22, col23, col24, col25, col26, col27, col28, col29, col30,
+	         col31, col32
         from TEST_TBL
         """
 conn = cx_Oracle.connect('c##sqldb/1234@localhost:1521/xe')
@@ -25,48 +25,67 @@ conn = cx_Oracle.connect('c##sqldb/1234@localhost:1521/xe')
 cs = conn.cursor()
 rs = cs.execute(sql)
 
-col1 = []
-col2 = []
-col3 = []
-col4 = []
+array = []
 
 for record in rs:
-    col1.append(record[0])
-    col2.append(record[1])
-    col3.append(record[2])
-    col4.append(record[3])
+    array.append(record[0])
+       
 
-print(col1[0]+col1[1]+col1[2])
-print(col2[0]+col2[1]+col2[2])
-print(col3[0]+col3[1]+col3[2])
-print(col4[0]+col4[1]+col4[2])
+X = np.empty((569,30))
+y = np.empty((569,1))
 
-X = col1
-y = col4
+for i in range(0, 568):
+    for j in range(2, 31):
+        X[i][j-2] = array[j + 32]
+        y[i][0] = array[2]
 
-print(type(X))
-print(type(y))
+print(y)    
+
 """
-X_train, X_validation, Y_train, Y_validation = train_test_split(X, y, test_size=0.20, random_state=1, shuffle=True)
-# Spot Check Algorithms
-models = []
-models.append(('LR', LogisticRegression(solver='liblinear', multi_class='ovr')))
-#models.append(('LDA', LinearDiscriminantAnalysis()))
-#models.append(('KNN', KNeighborsClassifier()))
-#models.append(('CART', DecisionTreeClassifier()))
-#models.append(('NB', GaussianNB()))
-#models.append(('SVM', SVC(gamma='auto')))
-# evaluate each model in turn
-results = []
-names = []
-for name, model in models:
-	kfold = StratifiedKFold(n_splits=2, random_state=1, shuffle=True)
-	cv_results = cross_val_score(model, X_train, Y_train, cv=kfold, scoring='accuracy')
-	results.append(cv_results)
-	names.append(name)
-	print('%s: %f (%f)' % (name, cv_results.mean(), cv_results.std()))
-# Compare Algorithms
-pyplot.boxplot(results, labels=names)
-pyplot.title('Algorithm Comparison')
-pyplot.show()
+X = array[:,2:32]
+y = array[:,1:2]
+
+print(y)
+
+
+for record in rs:
+    array[0].append(record[0])
+    array[0].append(record[1])
+    array[0].append(record[2])
+    array[0].append(record[3])
+    array[0].append(record[4])
+    array[0].append(record[5])
+    array[0].append(record[6])
+    array[0].append(record[7])
+    array[0].append(record[8])
+    array[0].append(record[9])
+    array[0].append(record[10])
+    array[0].append(record[11])
+    array[0].append(record[12])
+    array[0].append(record[13])
+    array[0].append(record[14])
+    array[0].append(record[15])
+    array[0].append(record[16])
+    array[0].append(record[17])
+    array[0].append(record[18])
+    array[0].append(record[19])
+    array[0].append(record[20])
+    array[0].append(record[21])
+    array[0].append(record[22])
+    array[0].append(record[23])
+    array[0].append(record[24])
+    array[0].append(record[25])
+    array[0].append(record[26])
+    array[0].append(record[27])
+    array[0].append(record[28])
+    array[0].append(record[29])
+    array[0].append(record[30])
+    array[0].append(record[31])
+    
+
+X = array[:,2:32]
+y = array[:,1:2]
+
+print(X)
+print(y)
 """
