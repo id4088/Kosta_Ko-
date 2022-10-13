@@ -4,7 +4,6 @@ import openpyxl
 import xlrd
 import pandas as pd
 import qrcode
-import pprint
 
 def qrcreator(filename):
 
