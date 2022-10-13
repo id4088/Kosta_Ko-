@@ -1,8 +1,5 @@
-import cv2
-import pyzbar.pyzbar as pyzbar
+import cv2 #pip
 import openpyxl
-import xlrd
-import pandas as pd
 import qrcode
 
 def qrcreator(filename):
@@ -10,7 +7,7 @@ def qrcreator(filename):
     QR = qrcode.QRCode()
 
 
-    wb = openpyxl.load_workbook(filename)
+    wb = openpyxl.load_workbook(filename+'.xlsx')
     ws = wb.active
 
 
@@ -31,7 +28,7 @@ def qrcode_receive():
 
     #try,except문을 이용하여 기존에 있는 파일을 열고, 데이터를 불러온다.(추후에 데이터가 없으면 추가하고, 아니면 추가하지 않기위한 과정)
     try:
-        f = open("hello.txt", "r", encoding="utf8")
+        f = open("hello.csv", "r")
         data_list = f.readlines()
     except FileNotFoundError:
         pass
@@ -55,11 +52,11 @@ def qrcode_receive():
             elif data not in used_codes:
                 print('QR코드 데이터: {}'.format(data))
 
-                lefttop = int(box[0][0][0]), int(box[0][0][1])
-                rightbottom = int(box[0][2][0]), int(box[0][2][1])
-                cv2.rectangle(img, lefttop, rightbottom, (0, 0, 255), 5)
+                lefttop = int(box[0][0][0]), int(box[0][0][1]) #15,15의 값을 lefttop에 대입 // box = array([[[ 15.,  15.], [388.,  15.], [388., 388.], [ 15., 388.]]], dtype=float32)
+                rightbottom = int(box[0][2][0]), int(box[0][2][1]) #388,15의 값을 rightbottom에 대입
+                cv2.rectangle(img, lefttop, rightbottom, (0, 0, 255), 5)#rectangle(이미지,시작점,종료점,색상,두께) => 네모 그리기
                 cv2.imshow('img', img)
-                f2 = open("hello.txt", "a", encoding="utf8")
+                f2 = open("hello.csv", "a", encoding="utf8")
                 f2.write(data+'\n')
                 f2.close()
 
@@ -68,5 +65,5 @@ def qrcode_receive():
         else:
             print("인식 오류!")
 
-qrcreator('breast_cancer.xlsx')
+qrcreator('breast_cancer')
 qrcode_receive()
