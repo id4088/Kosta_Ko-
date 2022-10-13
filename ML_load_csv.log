@@ -1,5 +1,5 @@
 
-SQL*Loader: Release 21.0.0.0.0 - Production on 수 10월 12 14:58:27 2022
+SQL*Loader: Release 21.0.0.0.0 - Production on 목 10월 13 14:38:07 2022
 Version 21.3.0.0.0
 
 Copyright (c) 1982, 2021, Oracle and/or its affiliates.  All rights reserved.
@@ -18,7 +18,7 @@ Copyright (c) 1982, 2021, Oracle and/or its affiliates.  All rights reserved.
 계속:    지정 사항 없음
 사용된 경로:      규약
 
-테이블 TEST_TBL, 로드되었습니다 개개의 논리 레코드로부터
+테이블 CANCER_FACTOR_TBL, 로드되었습니다 개개의 논리 레코드로부터
 이 테이블에 적당한 Insert 옵션: APPEND
 TRAILING NULLCOLS 옵션 유효
 
@@ -58,7 +58,7 @@ COL31                                NEXT     *   ,       CHARACTER
 COL32                                NEXT     *   ,       CHARACTER            
 
 ROWS 매개변수에 사용된 값이 250에서 127(으)로 변경됨
-테이블 TEST_TBL:
+테이블 CANCER_FACTOR_TBL:
   569 행이(가) 성공적으로 로드되었습니다.
   데이터 오류 때문에 0 행이(가) 로드되지 않았습니다.
   모든 WHEN 절을 실패했기 때문에 0 행이(가) 로드되지 않았습니다.
@@ -73,8 +73,8 @@ ROWS 매개변수에 사용된 값이 250에서 127(으)로 변경됨
 거부된 논리 레코드의 합계:         0
 폐기된 논리 레코드의 합계:        0
 
-수 10월 12 14:58:27 2022에 실행 개시
-수 10월 12 14:58:28 2022에 실행 종료
+목 10월 13 14:38:07 2022에 실행 개시
+목 10월 13 14:38:08 2022에 실행 종료
 
-경과 시간:        00:00:01.03
-CPU 시간:         00:00:00.14
+경과 시간:        00:00:00.97
+CPU 시간:         00:00:00.11

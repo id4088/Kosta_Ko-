@@ -2,7 +2,7 @@ options (skip = 1)
 load data
 infile 'C:\app\breast-cancer.csv'
 append
-into table TEST_TBL
+into table CANCER_FACTOR_TBL
 fields terminated by ','
 trailing nullcols
 (
